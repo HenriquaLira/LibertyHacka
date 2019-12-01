@@ -9,6 +9,11 @@ using System.Collections.Generic;
 
 namespace Painel_de_Verificação.Controllers
 {
+    static class ResultTypes
+    {
+        public const string ZERO_RESULTS = "ZERO_RESULTS";
+    }
+
     public class HomeController : Controller
     {
         List<CarroModel> Carros = new List<CarroModel>();
@@ -61,10 +66,14 @@ namespace Painel_de_Verificação.Controllers
             }
 
             JsonRes.JsonResult jsonResults = JsonConvert.DeserializeObject<JsonRes.JsonResult>(jsonString);
-            Tuple<double, double> latLong = _returnLongLat(jsonResults);
 
-            ViewData["Message"] = String.Format("https://maps.googleapis.com/maps/api/streetview?size=600x300&location={0},{1}&heading=151.78&pitch=-0.76&key=AIzaSyAlZA6KjskEkGM7m7z0SsfKAE6kGLucTWA", latLong.Item1, latLong.Item2);
-            ViewData["linkMaps"] = String.Format("https://www.google.com.br/maps/place/{0}", enderecoFormatado);
+            if (jsonResults.Status != ResultTypes.ZERO_RESULTS)
+            {
+                Tuple<double, double> latLong = _returnLongLat(jsonResults);
+
+                ViewData["Message"] = String.Format("https://maps.googleapis.com/maps/api/streetview?size=600x300&location={0},{1}&heading=151.78&pitch=-0.76&key=AIzaSyAlZA6KjskEkGM7m7z0SsfKAE6kGLucTWA", latLong.Item1, latLong.Item2);
+                ViewData["linkMaps"] = String.Format("https://www.google.com.br/maps/place/{0}", enderecoFormatado);
+            }
 
             return View(painel);
         }
