@@ -8,12 +8,12 @@
 {
     <br />
     <div class="row">
-        <div class="form-group row col-sm-6">
+        <div class="form-group row col-sm-8">
             <div class="col-sm-1">
                 <img src="~/Imagens/filtro.PNG">
             </div>
             <label for="nome-do-plano" class="col-md-1 col-sm-3 col-form-label">Tipo:</label>
-            <div class="col-sm-5">
+            <div class="col-sm-3">
                 <input type="text" id="tipo" class="form-control" name="tipo" list="listTipo" required>
                 <datalist id="listTipo">
                     <option>Rua</option>
@@ -21,17 +21,26 @@
                     <option>Rodovia</option>
                 </datalist>
             </div>
+            <div class="col-sm-5">
+                <input type="text" id="endereco" class="form-control" name="endereco" placeholder="Endereço" required>
+            </div>
+            <div class="col-sm-2">
+                <input type="text" id="numero" class="form-control" name="numero" placeholder="N°">
+            </div>
         </div>
-        <div class="col-sm-6">
+        @*<div class="col-sm-6">
             <input type="text" id="endereco" class="form-control" name="endereco" placeholder="Endereço" required>
-        </div>
+        </div>*@
     </div>
-    <div class="row">
-        <div class="col-sm-2">
-            <input type="text" id="numero" class="form-control" name="numero" placeholder="N°">
+    <div class="form-group row col-sm-8">
+        <div class="col-sm-3">
+            <input type="text" id="CEP" name="CEP" class="form-control" placeholder="CEP">
+        </div>
+        <div class="col-sm-5">
+            <input type="text" id="cidade" class="form-control" name="cidade" placeholder="Cidade" required>
         </div>
         <div class="col-sm-2">
-            <input type="text" id="CEP" name="CEP" class="form-control" onkeypress="$(this).mask('00.000-000')" placeholder="CEP">
+            <input type="text" id="UF" name="UF" class="form-control" placeholder="UF" required>
         </div>
         <div class="col-sm-2">
             <input type="Submit" value="Pesquisar" class="btn btn-primary btn-sm ml-4">

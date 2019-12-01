@@ -47,12 +47,12 @@ namespace Painel_de_Verificação.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string tipo, string endereco, string numero, string CEP)
+        public ActionResult Index(string tipo, string endereco, string numero, string CEP, string cidade, string UF)
         {
             painel.Carros = CarroModel.GetLista();
             painel.Score = ScoreTerceiroModel.GetLista();
 
-            string enderecoFormatado = _formatarEndereco(tipo, endereco, numero, CEP);
+            string enderecoFormatado = _formatarEndereco(tipo, endereco, numero, CEP, cidade, UF);
 
             HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(string.Format("https://maps.googleapis.com/maps/api/geocode/json?address={0}&key=AIzaSyAlZA6KjskEkGM7m7z0SsfKAE6kGLucTWA", enderecoFormatado));
             WebReq.Method = "GET";
@@ -104,9 +104,9 @@ namespace Painel_de_Verificação.Controllers
 
             return tuple;
         }
-        private string _formatarEndereco(string tipo, string endereco, string numero, string CEP)
+        private string _formatarEndereco(string tipo, string endereco, string numero, string CEP, string cidade, string UF)
         {
-            string enderecoFormatado = String.Format("{0}%20{1}%20{2}%20{3}", tipo, endereco, numero, CEP);
+            string enderecoFormatado = String.Format("{0}%20{1}%20{2}%20{3}%20{4}%20{5}", tipo, endereco, numero, CEP, cidade, UF);
 
             return enderecoFormatado;
         }
