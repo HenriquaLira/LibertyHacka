@@ -1,0 +1,47 @@
+﻿@model IEnumerable<PainelAnalyse.Models.ScoreTerceiroModel>
+@{
+    ViewBag.Title = "ListaCarros";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Endereco)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NomeMae)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Documento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Score)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var carro in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => carro.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => carro.Endereco)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => carro.NomeMae)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => carro.Documento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => carro.Score)
+            </td>
+        </tr>
+    }
+</table>
+

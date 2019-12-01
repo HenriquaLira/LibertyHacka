@@ -1,0 +1,53 @@
+﻿@model IEnumerable<PainelAnalyse.Models.CarroModel>
+@{
+    ViewBag.Title = "ListaCarros";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Modelo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Marca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrecoFipe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ano)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Placa)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var carro in Model)
+    {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => carro.Modelo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => carro.Marca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => carro.Cor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => carro.PrecoFipe)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => carro.Ano)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => carro.Placa)
+        </td>
+    </tr>
+    }
+</table>
+

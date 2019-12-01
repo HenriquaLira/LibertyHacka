@@ -1,14 +1,17 @@
-﻿@{
+﻿@model PainelAnalyse.Models.PainelViewModel
+@{
     ViewBag.Title = "Home Page";
     var data = (string)ViewData["Message"];
     var link = (string)ViewData["linkMaps"];
 }
-
 @using (Html.BeginForm("Home"))
 {
     <br />
     <div class="row">
         <div class="form-group row col-sm-6">
+            <div class="col-sm-1">
+                <img src="~/Imagens/filtro.PNG">
+            </div>
             <label for="nome-do-plano" class="col-md-1 col-sm-3 col-form-label">Tipo:</label>
             <div class="col-sm-5">
                 <input type="text" id="tipo" class="form-control" name="tipo" list="listTipo" required>
@@ -36,14 +39,33 @@
     </div>
     <br />
     <div class="row">
-        <div class="col-sm-2">
-            <img src="@data" width="600" height="300">
+        <div>
+            <img src="@data" width="550" height="300">
+            " "
+            <img src="~/Imagens/CivicBatido.jpg" width="550" height="300">
+
         </div>
+
     </div>
     <br />
     <div class="row">
         <div class="col-sm-12">
-            <a src="@link" target="_blank">teste</a>
+            <a src="@link" target="_blank">@link</a>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1">
+            <img src="~/Imagens/Dolar.png">
+        </div>
+        <h3>Análse Financeira</h3>
+        @Html.Partial("~/Views/Home/ListaCarros.cshtml", Model.Carros)
+    </div>
+
+    <div class="row">
+        <div class="col-sm-1">
+            <img src="~/Imagens/Dolar.png">
+        </div>
+        <h3>Análse Score</h3>
+        @Html.Partial("~/Views/Home/ScoreTerceiro.cshtml", Model.Score)
     </div>
 }

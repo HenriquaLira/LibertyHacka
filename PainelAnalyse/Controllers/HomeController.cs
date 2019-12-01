@@ -4,37 +4,48 @@ using System.IO;
 using System.Net;
 using System.Web.Mvc;
 using JsonRes = PainelAnalyse.Models;
+using PainelAnalyse.Models;
+using System.Collections.Generic;
 
 namespace Painel_de_Verificação.Controllers
 {
     public class HomeController : Controller
     {
+        List<CarroModel> Carros = new List<CarroModel>();
+        List<ScoreTerceiroModel> Score = new List<ScoreTerceiroModel>();
+
+        PainelViewModel painel = new PainelViewModel();
+
         [HttpGet]
         public ActionResult Index()
         {
+            painel.Carros = CarroModel.GetLista();
+            painel.Score = ScoreTerceiroModel.GetLista();
 
-            HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(string.Format("https://maps.googleapis.com/maps/api/geocode/json?address=Rua%20Francisco%20Rebelo%20321&key=AIzaSyAlZA6KjskEkGM7m7z0SsfKAE6kGLucTWA"));
-            WebReq.Method = "GET";
-            HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
+            //HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(string.Format("https://maps.googleapis.com/maps/api/geocode/json?address=Rua%20Francisco%20Rebelo%20321&key=AIzaSyAlZA6KjskEkGM7m7z0SsfKAE6kGLucTWA"));
+            //WebReq.Method = "GET";
+            //HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
 
-            string jsonString;
-            using (Stream stream = WebResp.GetResponseStream())   //modified from your code since the using statement disposes the stream automatically when done
-            {
-                StreamReader reader = new StreamReader(stream, System.Text.Encoding.UTF8);
-                jsonString = reader.ReadToEnd();
-            }
+            //string jsonString;
+            //using (Stream stream = WebResp.GetResponseStream())   //modified from your code since the using statement disposes the stream automatically when done
+            //{
+            //    StreamReader reader = new StreamReader(stream, System.Text.Encoding.UTF8);
+            //    jsonString = reader.ReadToEnd();
+            //}
 
-            JsonRes.JsonResult jsonResults = JsonConvert.DeserializeObject<JsonRes.JsonResult>(jsonString);
-            Tuple<double, double> latLong = _returnLongLat(jsonResults);
+            //JsonRes.JsonResult jsonResults = JsonConvert.DeserializeObject<JsonRes.JsonResult>(jsonString);
+            //Tuple<double, double> latLong = _returnLongLat(jsonResults);
 
-            ViewData["Message"] = String.Format("https://maps.googleapis.com/maps/api/streetview?size=600x300&location={0},{1}&heading=151.78&pitch=-0.76&key=AIzaSyAlZA6KjskEkGM7m7z0SsfKAE6kGLucTWA", latLong.Item1, latLong.Item2);
+            //ViewData["Message"] = String.Format("https://maps.googleapis.com/maps/api/streetview?size=600x300&location={0},{1}&heading=151.78&pitch=-0.76&key=AIzaSyAlZA6KjskEkGM7m7z0SsfKAE6kGLucTWA", latLong.Item1, latLong.Item2);
 
-            return View();
+            return View(painel);
         }
 
         [HttpPost]
         public ActionResult Index(string tipo, string endereco, string numero, string CEP)
         {
+            painel.Carros = CarroModel.GetLista();
+            painel.Score = ScoreTerceiroModel.GetLista();
 
             string enderecoFormatado = _formatarEndereco(tipo, endereco, numero, CEP);
 
@@ -55,7 +66,7 @@ namespace Painel_de_Verificação.Controllers
             ViewData["Message"] = String.Format("https://maps.googleapis.com/maps/api/streetview?size=600x300&location={0},{1}&heading=151.78&pitch=-0.76&key=AIzaSyAlZA6KjskEkGM7m7z0SsfKAE6kGLucTWA", latLong.Item1, latLong.Item2);
             ViewData["linkMaps"] = String.Format("https://www.google.com.br/maps/place/{0}", enderecoFormatado);
 
-            return View();
+            return View(painel);
         }
 
         public ActionResult About()
@@ -72,6 +83,10 @@ namespace Painel_de_Verificação.Controllers
             return View();
         }
 
+        public ActionResult ListaCarros()
+        {
+            return View(Carros);
+        }
         private Tuple<double, double> _returnLongLat(JsonRes.JsonResult jsonResults)
         {
             Tuple<double, double> tuple = 
