@@ -1,23 +1,49 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    var data = (string)ViewData["Message"];
+    var link = (string)ViewData["linkMaps"];
 }
 
-
-<br />
-<div class="row">
-    <div class="col-sm-2">
-        <img src="https://maps.googleapis.com/maps/api/streetview?size=600x300&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyAlZA6KjskEkGM7m7z0SsfKAE6kGLucTWA" width="600" height="300">
+@using (Html.BeginForm("Home"))
+{
+    <br />
+    <div class="row">
+        <div class="form-group row col-sm-6">
+            <label for="nome-do-plano" class="col-md-1 col-sm-3 col-form-label">Tipo:</label>
+            <div class="col-sm-5">
+                <input type="text" id="tipo" class="form-control" name="tipo" list="listTipo" required>
+                <datalist id="listTipo">
+                    <option>Rua</option>
+                    <option>Avenida</option>
+                    <option>Rodovia</option>
+                </datalist>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <input type="text" id="endereco" class="form-control" name="endereco" placeholder="Endereço" required>
+        </div>
     </div>
-    <div class="col-sm-1">
-        " "
+    <div class="row">
+        <div class="col-sm-2">
+            <input type="text" id="numero" class="form-control" name="numero" placeholder="N°">
+        </div>
+        <div class="col-sm-2">
+            <input type="text" id="CEP" name="CEP" class="form-control" onkeypress="$(this).mask('00.000-000')" placeholder="CEP">
+        </div>
+        <div class="col-sm-2">
+            <input type="Submit" value="Pesquisar" class="btn btn-primary btn-sm ml-4">
+        </div>
     </div>
-    <div class="col-sm-2">
-        <img src="https://maps.googleapis.com/maps/api/streetview?size=600x300&location=46.414382,10.013988&heading=151.78&pitch=-0.76&key=AIzaSyAlZA6KjskEkGM7m7z0SsfKAE6kGLucTWA" width="600" height="300">
+    <br />
+    <div class="row">
+        <div class="col-sm-2">
+            <img src="@data" width="600" height="300">
+        </div>
     </div>
-    <div class="col-sm-1">
-        " "
+    <br />
+    <div class="row">
+        <div class="col-sm-12">
+            <a src="@link" target="_blank">teste</a>
+        </div>
     </div>
-    <div class="col-sm-2">
-        <img src="https://maps.googleapis.com/maps/api/streetview?size=600x300&location=-23.7453163,-46.6952497&heading=151.78&pitch=-0.76&key=AIzaSyAlZA6KjskEkGM7m7z0SsfKAE6kGLucTWA" width="600" height="300">
-    </div>
-</div>
+}
